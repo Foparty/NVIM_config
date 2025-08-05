@@ -1,6 +1,6 @@
 {
-  "CopilotChat.nvim": { "branch": "main", "commit": "5c8b457d617dd1e533b826ff9f9b76ddf988756d" },
-  "auto-session": { "branch": "main", "commit": "c93a9bfd8a5cbf931a6ead5c824998da874b9f79" },
+  "CopilotChat.nvim": { "branch": "main", "commit": "06e54538c24cbeb341301418dabaf598ae8e7e60" },
+  "auto-session": { "branch": "main", "commit": "2374591ad5187e6697d9b4a683027ad33771381f" },
   "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
   "bullets.vim": { "branch": "master", "commit": "1c13e510e11d08b0259e8e627f128359c5521962" },
   "conform.nvim": { "branch": "master", "commit": "973f3cb73887d510321653044791d7937c7ec0fa" },

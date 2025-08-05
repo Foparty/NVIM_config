@@ -6,7 +6,7 @@ vim.g.have_nerd_font = true
 local o = vim.opt
 
 vim.schedule(function()
-  o.clipboard = "unnamedplus"
+	o.clipboard = "unnamedplus"
 end)
 
 o.number = true
@@ -43,23 +43,23 @@ o.scrolloff = 10
 o.spelllang = { "es" }
 -- vim.opt.spell = true
 vim.diagnostic.config({
-  virtual_text = true,
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = "󰅚 ",
-      [vim.diagnostic.severity.WARN] = "󰀪 ",
-      [vim.diagnostic.severity.INFO] = "󰋽 ",
-      [vim.diagnostic.severity.HINT] = "󰌶 ",
-    },
-  },
+	virtual_text = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+		},
+	},
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
@@ -68,24 +68,24 @@ o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "global
 
 -- Folding settings
 
-o.foldmethod = "expr"                          -- Use expression-based folding
+o.foldmethod = "expr" -- Use expression-based folding
 o.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use Tree-sitter for fold expressions
-o.foldlevel = 99                               -- Start with all folds open (high foldlevel)
-o.foldlevelstart = 99                          -- Apply to new buffers
-o.foldenable = true                            -- Enable folding
-o.foldcolumn = "0"                             -- Show fold column for indicators
+o.foldlevel = 99 -- Start with all folds open (high foldlevel)
+o.foldlevelstart = 99 -- Apply to new buffers
+o.foldenable = true -- Enable folding
+o.foldcolumn = "0" -- Show fold column for indicators
 
 o.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
 }
 
 vim.filetype.add({
-  extension = {
-    mdx = "mdx",
-  },
+	extension = {
+		mdx = "mdx",
+	},
 })
