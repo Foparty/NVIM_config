@@ -91,6 +91,7 @@ return {
       require("lspconfig").cssls.setup({ capabilities = capabilities })
       require("lspconfig").html.setup({ capabilities = capabilities })
       require("lspconfig").tailwindcss.setup({ capabilities = capabilities })
+      require("lspconfig").ts_ls.setup({ capabilities = capabilities })
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -159,5 +160,5 @@ return {
         end,
       })
     end,
-  }
+  },
 }
