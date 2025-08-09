@@ -4,10 +4,13 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {
 		keymap = {
+			builtin = {
+				["<c-d>"] = "preview-page-down", -- Keep default
+				["<c-u>"] = "preview-page-up", -- Keep default
+			},
 			fzf = {
-				["ctrl-d"] = "preview-page-down", -- Keep default
-				["ctrl-u"] = "preview-page-up", -- Keep default
-				["ctrl-t"] = "toggle-preview", -- Override/add
+				["tab"] = "toggle",
+				["alt-a"] = "toggle-all",
 			},
 		},
 		winopts = {
