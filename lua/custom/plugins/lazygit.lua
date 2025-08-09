@@ -19,10 +19,10 @@ return {
   -- order to load the plugin when the command is run for the first time
   keys = {
     { "<leader>gg", "<cmd>LazyGit<cr>", desc = "[L]azy [Git] open" },
-    {
-      "<leader>gfl",
-      "<cmd>LazyGitFilterCurrentFile<cr>",
-      desc = "Lazy [G]it file [L]og",
-    },
+    -- {
+    --   "<leader>gf",
+    --   "<cmd>LazyGitFilterCurrentFile<cr>",
+    --   desc = "Lazy [G]it file [L]og",
+    -- },
   },
 }
