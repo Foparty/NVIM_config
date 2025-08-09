@@ -20,8 +20,8 @@ map.set("n", "<C-b>", "<C-b>zz", { desc = "Scroll up full page and center" })
 
 map.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move current line down" })
 map.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move current line up" })
-map.set("v", "<A-j>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" })
-map.set("v", "<A-k>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" })
+map.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" })
+map.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" })
 
 -- NOTE: most probably wont need this when using trouble
 map.set("n", "<leader>dg", vim.diagnostic.setloclist, { desc = "Open diagnostics in quickfix list" })
