@@ -64,7 +64,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 
--- o.winborder = "rounded"
+vim.opt.signcolumn = "yes"
+o.winborder = "rounded"
 
 -- Folding settings
 
