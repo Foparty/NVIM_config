@@ -2,29 +2,19 @@ return {
 	"ibhagwan/fzf-lua",
 	enabled = true,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	opts = function(_, opts)
-		local actions = require("fzf-lua").actions
-		return {
-			keymap = {
-				fzf = {
-					["ctrl-d"] = "preview-page-down", -- Keep default
-					["ctrl-u"] = "preview-page-up", -- Keep default
-					["ctrl-t"] = "toggle-preview", -- Override/add
-				},
+	opts = {
+		keymap = {
+			fzf = {
+				["ctrl-d"] = "preview-page-down", -- Keep default
+				["ctrl-u"] = "preview-page-up", -- Keep default
+				["ctrl-t"] = "toggle-preview", -- Override/add
 			},
-			winopts = {
-				width = 0.95, -- Override default
-				height = 0.95, -- Override default
-			},
-			actions = {
-				files = {
-					["ctrl-q"] = actions.file_sel_to_qf, -- Add new action
-					["ctrl-i"] = actions.toggle_ignore,
-					["ctrl-h"] = actions.toggle_hidden,
-				},
-			},
-		}
-	end,
+		},
+		winopts = {
+			width = 0.95, -- Override default
+			height = 0.95, -- Override default
+		},
+	},
 	keys = {
 		{
 			"<leader><leader>",
