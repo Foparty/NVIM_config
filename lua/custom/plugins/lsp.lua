@@ -34,11 +34,11 @@ return {
           map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
           map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-          map("g.", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+          -- map("g.", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
-          map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+          -- map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -84,8 +84,33 @@ return {
       -- end of attach function
       local old_capabilities = vim.lsp.protocol.make_client_capabilities()
       local capabilities = require("blink.cmp").get_lsp_capabilities(old_capabilities)
-      require("lspconfig").lua_ls.setup({ capabilities = capabilities })
-      require("lspconfig").ts_ls.setup({ capabilities = capabilities })
+      require("lspconfig").lua_ls.setup({
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }, -- Recognize Vim globals for Neovim
+            },
+          },
+        },
+      })
+      require("lspconfig").ts_ls.setup({
+        capabilities = capabilities,
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayFunctionLikeReturnTypeHints = true,
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayFunctionLikeReturnTypeHints = true,
+            },
+          },
+        },
+      })
       require("lspconfig").astro.setup({ capabilities = capabilities })
       require("lspconfig").eslint.setup({ capabilities = capabilities })
       require("lspconfig").cssls.setup({ capabilities = capabilities })
