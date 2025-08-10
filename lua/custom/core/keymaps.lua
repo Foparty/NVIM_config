@@ -6,6 +6,9 @@ map.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" }
 map.set("i", "kj", "<Esc>:w<CR>", { desc = "Exit insert mode and save file" })
 map.set("i", "jj", "<Esc>:w<CR>", { desc = "Exit insert mode and save file" })
 
+map.set("v", "<", "<gv")
+map.set("v", ">", ">gv")
+
 map.set("n", "<C-s>", "gg<S-v>G", { desc = "Select all text" })
 map.set("n", "<leader>rf", vim.lsp.buf.format, { desc = "[R]e[F]ormat buffer" })
 
