@@ -33,7 +33,7 @@ return {
         }
       end,
       formatters_by_ft = {
-        astro = { "prettier" },
+        -- astro = { "prettier" },
         lua = { "stylua" },
         javascript = { { "prettierd", "prettier" } },
         typescript = { { "prettierd", "prettier" } },
