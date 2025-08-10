@@ -21,7 +21,7 @@ o.autoindent = true
 o.smartindent = true
 o.mouse = "a"
 o.showmode = false
-o.conceallevel = 1
+o.conceallevel = 0
 
 o.undofile = true
 o.breakindent = true
@@ -40,7 +40,7 @@ o.inccommand = "split"
 o.cursorline = true
 o.scrolloff = 10
 
-o.spelllang = { "es" }
+o.spelllang = { "es", "en" }
 -- vim.opt.spell = true
 vim.diagnostic.config({
   virtual_text = true,
