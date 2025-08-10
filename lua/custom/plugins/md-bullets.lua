@@ -8,6 +8,6 @@ return {
 
     -- (Optional) Add other configurations here
     -- For example, enabling/disabling mappings
-    -- vim.g.bullets_set_mappings = 1
+    -- vim.g.bullets_set_appings = 1
   end,
 }
