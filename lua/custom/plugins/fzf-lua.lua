@@ -104,7 +104,7 @@ return {
       desc = "branches",
     },
     {
-      "gx",
+      "<leader>dl",
       function()
         require("fzf-lua").diagnostics_workspace()
       end,
