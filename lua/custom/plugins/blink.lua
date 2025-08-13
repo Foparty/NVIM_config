@@ -4,7 +4,8 @@ return {
     "saghen/blink.cmp",
     dependencies = {
       "rafamadriz/friendly-snippets",
-      "fang2hou/blink-copilot",
+      -- "fang2hou/blink-copilot",
+      "Kaiser-Yang/blink-cmp-avante",
       -- "zbirenbaum/copilot.lua",
     },
     version = "*",
@@ -40,13 +41,25 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "copilot" },
+        default = { "avante", "lsp", "path", "snippets", "buffer" },
         providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot", -- or "blink-cmp-copilot" depending on the plugin
-            score_offset = 100,
-            async = true,
+          -- copilot = {
+          -- 	name = "copilot",
+          -- 	module = "blink-copilot", -- or "blink-cmp-copilot" depending on the plugin
+          -- 	score_offset = 100,
+          -- 	async = true,
+          -- },
+          avante = {
+            module = "blink-cmp-avante", -- Load the integration module
+            name = "Avante",       -- Display name in completion menu
+            opts = {
+              -- Optional customizations (see below for examples)
+              kind_icons = {
+                AvanteCmd = "", -- Icon for commands
+                AvanteMention = "@", -- Icon for mentions
+                AvanteShortcut = "#", -- Icon for shortcuts
+              },
+            },
           },
         },
       },
