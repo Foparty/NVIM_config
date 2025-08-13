@@ -190,9 +190,7 @@ local function toggle_buffer()
   end
 end
 
--- Map <leader><leader> to toggle buffer
 map.set("n", "<leader>j", toggle_buffer, { noremap = true, silent = true })
 map.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Show hover information" })
 
--- local chat = require("CopilotChat")
--- map.set("n", "<leader>cc", ":CopilotChatToggle<CR>", { desc = "toggle chat" })
+map.set({ "n", "v" }, "gu", "~", { noremap = true, silent = true, desc = "Toggle case" })
