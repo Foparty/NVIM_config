@@ -10,6 +10,14 @@ return {
       explorer = {
         replace_netrw = true,
       },
+      picker = {
+
+        sources = {
+          explorer = {
+            auto_close = true,
+          },
+        },
+      },
       -- scroll = { enabled = true },
       -- notify = { enabled = true },
       -- notifier = { enabled = true },
