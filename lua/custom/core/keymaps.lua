@@ -1,4 +1,3 @@
-local livepreview = require("custom.plugins.livepreview")
 local map = vim.keymap
 
 map.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
@@ -36,6 +35,12 @@ map.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
 map.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
 map.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
+map.set("n", "g/", function()
+  vim.diagnostic.open_float()
+end, { desc = "diagnostic hover" })
+
+-- NOTE: to set every diagnostic to the quickfix list vim.diagnostic.setqflist()
+
 map.set("n", "<leader>q", ":wqa!<CR>", { desc = "Save all and [q]uit" })
 
 map.set("n", "<c-q>", function()
@@ -47,6 +52,7 @@ map.set("n", "<c-q>", function()
     vim.cmd("update")                -- Save changes (if any)
   end
 end, { desc = "Close split or open file explorer if last window" })
+
 map.set("n", "<up>", function()
   local win_count = vim.fn.winnr("$") -- Get the total number of windows
   if win_count > 1 then
