@@ -31,7 +31,7 @@ return {
       function()
         require("fzf-lua").lsp_document_symbols()
       end,
-      desc = "branches",
+      desc = "document symbols",
     },
     {
       "<leader>,",
@@ -101,21 +101,21 @@ return {
       function()
         require("fzf-lua").lsp_workspace_symbols()
       end,
-      desc = "branches",
+      desc = "project symbols",
     },
     {
       "<leader>dl",
       function()
         require("fzf-lua").diagnostics_workspace()
       end,
-      desc = "branches",
+      desc = "diagnostics",
     },
     {
       "gd",
       function()
         require("fzf-lua").lsp_definitions()
       end,
-      desc = "branches",
+      desc = "go to definition",
     },
     {
       "gD",
