@@ -26,7 +26,6 @@ map.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" })
 map.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" })
 
 -- NOTE: most probably wont need this when using trouble
-map.set("n", "<leader>dg", vim.diagnostic.setloclist, { desc = "Open diagnostics in quickfix list" })
 map.set("n", "<leader>]", "<cmd>cnext<CR>", { desc = "Go to next quickfix item" })
 map.set("n", "<leader>[", "<cmd>cprev<CR>", { desc = "Go to previous quickfix item" })
 
@@ -35,36 +34,28 @@ map.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to right window" })
 map.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to lower window" })
 map.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to upper window" })
 
-map.set("n", "g/", function()
+map.set("n", "D", function()
   vim.diagnostic.open_float()
 end, { desc = "diagnostic hover" })
-
--- NOTE: to set every diagnostic to the quickfix list vim.diagnostic.setqflist()
 
 map.set("n", "<leader>q", ":wqa!<CR>", { desc = "Save all and [q]uit" })
 
 map.set("n", "<c-q>", function()
-  local win_count = vim.fn.winnr("$") -- Get the total number of windows
-  if win_count > 1 then
-    vim.cmd("update")                -- Save changes (if any)
-    pcall(vim.cmd, "close")          -- Safely close the current window (ignore errors)
-  else
-    vim.cmd("update")                -- Save changes (if any)
-  end
+  vim.cmd("close") -- Save changes (if any)
 end, { desc = "Close split or open file explorer if last window" })
 
 map.set("n", "<up>", function()
   local win_count = vim.fn.winnr("$") -- Get the total number of windows
   if win_count > 1 then
-    vim.cmd("update")                -- Save changes (if any)
+    vim.cmd("write")                 -- Save changes (if any)
     pcall(vim.cmd, "close")          -- Safely close the current window (ignore errors)
   else
-    vim.cmd("update")                -- Save changes (if any)
+    vim.cmd("write")                 -- Save changes (if any)
   end
 end, { desc = "Close split or open file explorer if last window" })
 map.set("n", "<right>", "<C-w>v", { desc = "Split window vertically" })
 map.set("n", "<down>", "<C-w>s", { desc = "Split window horizontally" })
-map.set("n", "<left>", ":up!<CR>", { desc = "Save current file" }) -- Note: This command seems incorrect, should be ":w<CR>"
+map.set("n", "<left>", ":w!<CR>", { desc = "Save current file" }) -- Note: This command seems incorrect, should be ":w<CR>"
 
 map.set("n", "<leader>kb", ":bd!<CR>", { desc = "[K]ill current buffer" })
 map.set("n", "<leader>ka", ":%bd<CR>", { desc = "[K]ill [A]ll buffers" })
