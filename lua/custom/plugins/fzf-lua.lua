@@ -2,22 +2,68 @@ return {
   "ibhagwan/fzf-lua",
   enabled = true,
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  opts = {
-    keymap = {
-      builtin = {
-        ["<c-d>"] = "preview-page-down", -- Keep default
-        ["<c-u>"] = "preview-page-up", -- Keep default
+  config = function()
+    local actions = require("fzf-lua").actions
+    require("fzf-lua").setup({
+      keymap = {
+        builtin = {
+          ["<c-d>"] = "preview-page-down", -- Keep default
+          ["<c-u>"] = "preview-page-up", -- Keep default
+          ["<M-Esc>"] = "hide",       -- hide fzf-lua, `:FzfLua resume` to continue
+          ["<F1>"] = "toggle-help",
+          ["<F2>"] = "toggle-fullscreen",
+          -- Only valid with the 'builtin' previewer
+          ["<F3>"] = "toggle-preview-wrap",
+          ["<F4>"] = "toggle-preview",
+          -- Rotate preview clockwise/counter-clockwise
+          ["<F5>"] = "toggle-preview-ccw",
+          ["<F6>"] = "toggle-preview-cw",
+          -- `ts-ctx` binds require `nvim-treesitter-context`
+          ["<F7>"] = "toggle-preview-ts-ctx",
+          ["<F8>"] = "preview-ts-ctx-dec",
+          ["<F9>"] = "preview-ts-ctx-inc",
+          ["<S-Left>"] = "preview-reset",
+          ["<M-S-down>"] = "preview-down",
+          ["<M-S-up>"] = "preview-up",
+        },
+        fzf = {
+          ["tab"] = "toggle",
+          ["ctrl-a"] = "toggle-all",
+          ["ctrl-z"] = "abort",
+          ["ctrl-u"] = "unix-line-discard",
+          ["ctrl-f"] = "half-page-down",
+          ["ctrl-b"] = "half-page-up",
+          ["alt-a"] = "beginning-of-line",
+          ["ctrl-e"] = "end-of-line",
+          ["alt-g"] = "first",
+          ["alt-G"] = "last",
+          -- Only valid with fzf previewers (bat/cat/git/etc)
+          ["f3"] = "toggle-preview-wrap",
+          ["f4"] = "toggle-preview",
+          ["shift-down"] = "preview-page-down",
+          ["shift-up"] = "preview-page-up",
+        },
       },
-      fzf = {
-        ["tab"] = "toggle",
-        ["alt-a"] = "toggle-all",
+      winopts = {
+        width = 0.95, -- Override default
+        height = 0.95, -- Override default
       },
-    },
-    winopts = {
-      width = 0.95, -- Override default
-      height = 0.95, -- Override default
-    },
-  },
+      actions = {
+        files = {
+          ["ctrl-q"] = actions.file_sel_to_qf,
+          ["enter"] = actions.file_edit_or_qf,
+          ["ctrl-s"] = actions.file_split,
+          ["ctrl-v"] = actions.file_vsplit,
+          ["ctrl-t"] = actions.file_tabedit,
+          ["alt-Q"] = actions.file_sel_to_ll,
+          ["alt-i"] = actions.toggle_ignore,
+          ["alt-h"] = actions.toggle_hidden,
+          ["alt-f"] = actions.toggle_follow,
+        },
+      },
+    })
+  end,
+
   keys = {
     {
       "<leader><leader>",
