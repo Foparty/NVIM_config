@@ -38,6 +38,14 @@ return {
     dependencies = "rktjmp/lush.nvim",
     lazy = false,
     priority = 1000,
+    config = function()
+      vim.g.zenbones = {
+        transparent_background = true,
+        italic_comments = true,
+        -- Options: 'zenbones', 'zenwritten', 'zenburned', 'nordbones', 'forestbones', 'tokyobones', 'rosenones', 'vimbones', 'neobones', 'seoulbones' or 'duckbones'
+        variant = "zenbones",
+      }
+    end,
   },
   {
     -- https://github.com/projekt0n/github-nvim-theme

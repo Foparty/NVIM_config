@@ -2,6 +2,8 @@ local map = vim.keymap
 
 map.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
 
+map.set("n", ";", ":", { desc = "Clear search highlight" })
+
 map.set("i", "kj", "<Esc>:w<CR>", { desc = "Exit insert mode and save file" })
 map.set("i", "jj", "<Esc>:w<CR>", { desc = "Exit insert mode and save file" })
 
@@ -38,7 +40,7 @@ map.set("n", "D", function()
   vim.diagnostic.open_float()
 end, { desc = "diagnostic hover" })
 
-map.set("n", "<leader>q", ":wqa!<CR>", { desc = "Save all and [q]uit" })
+map.set("n", "<leader>q", ":qa!<CR>", { desc = "Save all and [q]uit" })
 
 map.set("n", "<c-q>", function()
   vim.cmd("close") -- Save changes (if any)
@@ -191,3 +193,12 @@ map.set("n", "<leader>j", toggle_buffer, { noremap = true, silent = true })
 map.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Show hover information" })
 
 map.set({ "n", "v" }, "gu", "~", { noremap = true, silent = true, desc = "Toggle case" })
+
+-- terminal stuff
+
+-- map.set("n", "<leader>tt", function()
+-- 	vim.cmd.vnew()
+-- 	vim.cmd.term()
+-- 	vim.cmd.wincmd("J")
+-- 	vim.api.nvim_win_set_height(0, 10)
+-- end, { desc = "Toggle terminal" })
