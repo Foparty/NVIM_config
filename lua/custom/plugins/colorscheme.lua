@@ -40,7 +40,7 @@ return {
     priority = 1000,
     config = function()
       vim.g.zenbones = {
-        transparent_background = false,
+        transparent_background = true,
         italic_comments = true,
         -- Options: 'zenbones', 'zenwritten', 'zenburned', 'nordbones', 'forestbones', 'tokyobones', 'rosenones', 'vimbones', 'neobones', 'seoulbones' or 'duckbones'
         variant = "zenbones",
