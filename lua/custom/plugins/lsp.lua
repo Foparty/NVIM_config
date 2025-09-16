@@ -12,7 +12,24 @@ return {
         },
       },
       { "williamboman/mason.nvim", opts = {} },
-      "williamboman/mason-lspconfig.nvim",
+      {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {
+          ensure_installed = { "ruby_lsp" },
+          handlers = {
+            ["ruby_lsp"] = function()
+              require("lspconfig").ruby_lsp.setup({
+                -- Optional: Customize settings
+                settings = {
+                  ruby_lsp = {
+                    -- Add custom settings if needed
+                  },
+                },
+              })
+            end,
+          },
+        },
+      },
       "WhoIsSethDaniel/mason-tool-installer.nvim",
 
       { "j-hui/fidget.nvim",       opts = {} },
@@ -117,6 +134,7 @@ return {
       require("lspconfig").html.setup({ capabilities = capabilities })
       require("lspconfig").tailwindcss.setup({ capabilities = capabilities })
       require("lspconfig").ts_ls.setup({ capabilities = capabilities })
+      require("lspconfig").solargraph.setup({ capabilities = capabilities })
       local servers = {
         -- clangd = {},
         -- gopls = {},

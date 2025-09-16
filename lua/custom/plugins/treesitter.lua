@@ -19,6 +19,7 @@ return {
           "tsx",
           "javascript",
           "typescript",
+          "ruby",
         },
         auto_install = true,
         highlight = {
