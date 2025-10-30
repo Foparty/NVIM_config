@@ -55,10 +55,10 @@ end, { desc = "Close split or open file explorer if last window" })
 map.set("n", "<up>", function()
   local win_count = vim.fn.winnr("$") -- Get the total number of windows
   if win_count > 1 then
-    vim.cmd("write")                  -- Save changes (if any)
-    pcall(vim.cmd, "close")           -- Safely close the current window (ignore errors)
+    vim.cmd("write")                 -- Save changes (if any)
+    pcall(vim.cmd, "close")          -- Safely close the current window (ignore errors)
   else
-    vim.cmd("write")                  -- Save changes (if any)
+    vim.cmd("write")                 -- Save changes (if any)
   end
 end, { desc = "Close split or open file explorer if last window" })
 map.set("n", "<right>", "<C-w>v", { desc = "Split window vertically" })
@@ -196,3 +196,11 @@ map.set({ "n", "v" }, "gu", "~", { noremap = true, silent = true, desc = "Toggle
 map.set("n", "<leader>j", ":b#<CR>", { noremap = true, silent = true })
 map.set("n", "<leader>rr", ":!ruby %<CR>", { silent = true })  -- Run current file
 map.set("n", "<leader>ri", ":term irb<CR>", { silent = true }) -- Open irb in terminal
+
+vim.keymap.set("n", "<C-/>", '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true })
+vim.keymap.set(
+  "v",
+  "<C-/>",
+  '<esc><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>',
+  { noremap = true }
+)
