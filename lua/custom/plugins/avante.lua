@@ -1,6 +1,6 @@
 return {
   "yetone/avante.nvim",
-  enabled = false,
+  enabled = true,
   event = "VeryLazy",
   build = "make", -- Run this on install/update
   dependencies = {
