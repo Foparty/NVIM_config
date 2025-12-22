@@ -53,13 +53,7 @@ map.set("n", "<c-q>", function()
 end, { desc = "Close split or open file explorer if last window" })
 
 map.set("n", "<up>", function()
-  local win_count = vim.fn.winnr("$") -- Get the total number of windows
-  if win_count > 1 then
-    vim.cmd("write")                  -- Save changes (if any)
-    pcall(vim.cmd, "close")           -- Safely close the current window (ignore errors)
-  else
-    vim.cmd("write")                  -- Save changes (if any)
-  end
+  vim.cmd("close") -- Save changes (if any)
 end, { desc = "Close split or open file explorer if last window" })
 map.set("n", "<right>", "<C-w>v", { desc = "Split window vertically" })
 map.set("n", "<down>", "<C-w>s", { desc = "Split window horizontally" })
