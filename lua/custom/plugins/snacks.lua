@@ -7,6 +7,7 @@ return {
     ---@type snacks.Config
     opts = {
       -- ui_select = true,
+      image = { enabled = false },
       explorer = {
         replace_netrw = true,
       },
@@ -29,8 +30,8 @@ return {
           -- fullscreen = true,
           cycle = false,
           layout = {
-            width = 0.95,
-            height = 0.95,
+            width = 0.85,
+            height = 0.7,
           },
         },
         matcher = {
