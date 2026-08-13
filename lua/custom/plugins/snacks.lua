@@ -26,6 +26,11 @@ return {
       -- terminal = { enabled = true },
       picker = {
         enabled = true,
+        previewers = {
+          file = {
+            treesitter = false,
+          },
+        },
         layout = {
           -- fullscreen = true,
           cycle = false,
