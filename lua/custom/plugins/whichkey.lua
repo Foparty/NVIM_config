@@ -1,27 +1,21 @@
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy", -- Sets the loading event to 'VimEnter'
+  event = "VeryLazy",
   opts = {
     preset = "modern",
-      sort = {
-        by = "key", -- Can be "key" or "value"
-        order = "asc", -- Can be "asc" or "desc"
-      },
+    sort = { "local", "order", "group", "alphanum", "mod" },
   },
-
-  -- config = function()
-  --   require("which-key").add({
-  --     { "<leader>c", group = "[C]ode stuff" },
-  --     { "<leader>d", group = "[D]iagnostics" },
-  --     { "<leader>f", group = "[F]ind / Search options" },
-  --     { "<leader>g", group = "[G]it stuff" },
-  --     { "<leader>h", group = "[H] more Git stuff" },
-  --     { "<leader>k", group = "[H] more Git stuff" },
-  --     { "<leader>l", group = "[L] Git / Sessions" },
-  --     { "<leader>n", group = "[N]ew note or file" },
-  --     { "<leader>s", group = "[S]ubstitute R / SSymbols" },
-  --   })
-  -- end
-
+  config = function(_, opts)
+    require("which-key").setup(opts)
+    require("which-key").add({
+      { "<leader>c", group = "[C]ode" },
+      { "<leader>d", group = "[D]iff / Diagnostics" },
+      { "<leader>f", group = "[F]ind" },
+      { "<leader>g", group = "[G]it" },
+      { "<leader>h", group = "[H]istory" },
+      { "<leader>k", group = "[K]ill buffers" },
+      { "<leader>n", group = "[N]otes" },
+      { "<leader>t", group = "[T]est / Toggle" },
+    })
+  end,
 }
-

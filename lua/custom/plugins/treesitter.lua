@@ -24,7 +24,10 @@ return {
           "tsx",
           "javascript",
           "typescript",
-          "ruby",
+          "astro",
+          "bash",
+          "yaml",
+          "diff",
         },
         auto_install = true,
         highlight = {

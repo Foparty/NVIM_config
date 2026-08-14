@@ -28,7 +28,7 @@ return {
       require("notify").setup({
         merge_duplicates = true,
         background_colour = "#000000", -- Setting this to black or any other color you prefer
-        timeout = 100,
+        timeout = 3000,
       })
     end,
   },

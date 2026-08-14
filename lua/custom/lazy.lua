@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.g.have_nerd_font = true
 
 require("lazy").setup({
   spec = {
@@ -44,13 +45,4 @@ require("lazy").setup({
   },
 })
 
--- vim.cmd("colorscheme nightfox")
-
--- vim.cmd([[colorscheme vesper]])
 vim.cmd([[colorscheme nightfox]])
--- vim.cmd([[colorscheme ayu]])
--- vim.cmd([[colorscheme tokyonight]])
--- vim.cmd([[colorscheme github_dark_high_contrast]])
--- vim.cmd([[colorscheme gruvbox]])
--- vim.cmd([[colorscheme zenbones]])
--- vim.cmd([[colorscheme rose-pine]])

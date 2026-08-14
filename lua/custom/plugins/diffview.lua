@@ -4,7 +4,7 @@ return {
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
       { "<Leader>gh", "<cmd>DiffviewFileHistory<CR>", desc = "Diff File" },
-      { "<Leader>gd", "<cmd>DiffviewOpen<CR>",        desc = "Diff View" },
+      { "<Leader>dv", "<cmd>DiffviewOpen<CR>",        desc = "Diff View" },
     },
     opts = function()
       local actions = require("diffview.actions")

@@ -11,7 +11,7 @@ return {
           require("conform").format({ async = true, lsp_format = "fallback" })
         end,
         mode = "",
-        desc = "[R]eformat [A]utoformat",
+        desc = "[C]onform [F]ormat buffer",
       },
     },
     opts = {
@@ -42,8 +42,6 @@ return {
         html = { "prettier" },
         css = { "prettier" },
         mdx = { "prettier" },
-        ruby = { "ruby_lsp" },
-        -- Add other file types as required
       },
       formatters = {
         prettier = {

@@ -4,12 +4,8 @@ return {
 		"saghen/blink.cmp",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			-- "fang2hou/blink-copilot",
-			"Kaiser-Yang/blink-cmp-avante",
-			-- "zbirenbaum/copilot.lua",
 		},
 		version = "*",
-		optional = true,
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
@@ -29,39 +25,11 @@ return {
 			},
 
 			appearance = {
-				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
-				kind_icons = {
-					Copilot = "", -- Optional: Add Copilot icon
-					Text = "󰉿",
-					Method = "󰊕",
-					Function = "󰊕",
-					-- Add other icons as needed
-				},
 			},
 
 			sources = {
-				default = { "avante", "lsp", "path", "snippets", "buffer" },
-				providers = {
-					-- copilot = {
-					-- 	name = "copilot",
-					-- 	module = "blink-copilot", -- or "blink-cmp-copilot" depending on the plugin
-					-- 	score_offset = 100,
-					-- 	async = true,
-					-- },
-					avante = {
-						module = "blink-cmp-avante", -- Load the integration module
-						name = "Avante", -- Display name in completion menu
-						opts = {
-							-- Optional customizations (see below for examples)
-							kind_icons = {
-								AvanteCmd = "", -- Icon for commands
-								AvanteMention = "@", -- Icon for mentions
-								AvanteShortcut = "#", -- Icon for shortcuts
-							},
-						},
-					},
-				},
+				default = { "lsp", "path", "snippets", "buffer" },
 			},
 			fuzzy = {
 				implementation = "prefer_rust_with_warning",
@@ -77,13 +45,9 @@ return {
 
 				prebuilt_binaries = {
 					download = true,
-
 					ignore_version_mismatch = false,
-
 					force_version = nil,
-
 					force_system_triple = nil,
-
 					extra_curl_args = {},
 				},
 			},

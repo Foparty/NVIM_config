@@ -12,34 +12,7 @@ return {
 				},
 			},
 			{ "williamboman/mason.nvim", opts = {} },
-			{
-				"williamboman/mason-lspconfig.nvim",
-				opts = {
-					ensure_installed = { "ruby_lsp" },
-					handlers = {
-						["ruby_lsp"] = function()
-							vim.lsp.config("ruby_lsp", {
-								-- Optional: Customize settings
-								settings = {
-									ruby_lsp = {
-										-- Add custom settings if needed
-									},
-								},
-							})
-							vim.lsp.enable("ruby_lsp")
-						end,
-						-- Default handler for other servers (updated for new APIs)
-						function(server_name)
-							local server = servers[server_name] or {}
-							-- Apply capabilities
-							server.capabilities =
-								vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-							vim.lsp.config(server_name, server)
-							vim.lsp.enable(server_name)
-						end,
-					},
-				},
-			},
+			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
@@ -47,30 +20,14 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(event)
-					-- NOTE: Remember that Lua is a real programming language, and as such it is possible
-					-- to define small helper and utility functions so you don't have to repeat yourself.
-					--
-					-- In this case, we create a function that lets us more easily define mappings specific
-					-- for LSP related items. It sets the mode, buffer and description for us each time.
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-					-- map("g.", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 
-					-- WARN: This is not Goto Definition, this is Goto Declaration.
-					--  For example, in C this would take you to the header.
-					-- map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-
-					-- The following two autocommands are used to highlight references of the
-					-- word under your cursor when your cursor rests there for a little while.
-					--    See `:help CursorHold` for information about when this is executed
-					--
-					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 						local highlight_augroup =
@@ -96,10 +53,6 @@ return {
 						})
 					end
 
-					-- The following code creates a keymap to toggle inlay hints in your
-					-- code, if the language server you are using supports them
-					--
-					-- This may be unwanted, since they displace some of your code
 					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
 						map("<leader>th", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
@@ -107,118 +60,64 @@ return {
 					end
 				end,
 			})
-			-- end of attach function
-			local old_capabilities = vim.lsp.protocol.make_client_capabilities()
-			local capabilities = require("blink.cmp").get_lsp_capabilities(old_capabilities)
 
-			-- Updated manual setups using new APIs
-			vim.lsp.config("lua_ls", {
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" }, -- Recognize Vim globals for Neovim
-						},
-					},
-				},
-			})
-			vim.lsp.enable("lua_ls")
-
-			vim.lsp.config("ts_ls", {
-				capabilities = capabilities,
-				settings = {
-					typescript = {
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-							includeInlayFunctionLikeReturnTypeHints = true,
-						},
-					},
-					javascript = {
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-							includeInlayFunctionLikeReturnTypeHints = true,
-						},
-					},
-				},
-			})
-			vim.lsp.enable("ts_ls")
-
-			vim.lsp.config("astro", { capabilities = capabilities })
-			vim.lsp.enable("astro")
-
-			vim.lsp.config("eslint", { capabilities = capabilities })
-			vim.lsp.enable("eslint")
-
-			vim.lsp.config("cssls", { capabilities = capabilities })
-			vim.lsp.enable("cssls")
-
-			vim.lsp.config("html", { capabilities = capabilities })
-			vim.lsp.enable("html")
-
-			vim.lsp.config("tailwindcss", { capabilities = capabilities })
-			vim.lsp.enable("tailwindcss")
-
-			vim.lsp.config("solargraph", { capabilities = capabilities })
-			vim.lsp.enable("solargraph")
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			local servers = {
-				-- clangd = {},
-				-- gopls = {},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				astro = {},
-				ts_ls = {},
 				lua_ls = {
-					-- cmd = { ... },
-					-- filetypes = { ... },
-					-- capabilities = {},
 					settings = {
 						Lua = {
+							diagnostics = {
+								globals = { "vim" },
+							},
 							completion = {
 								callSnippet = "Replace",
 							},
-							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { 'missing-fields' } },
 						},
 					},
 				},
+				ts_ls = {
+					settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayFunctionLikeReturnTypeHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayFunctionLikeReturnTypeHints = true,
+							},
+						},
+					},
+				},
+				astro = {},
+				eslint = {},
+				cssls = {},
+				html = {},
+				tailwindcss = {},
 			}
 
-			local ensure_installed = vim.tbl_keys(servers or {})
+			for server_name, server_config in pairs(servers) do
+				server_config.capabilities =
+					vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
+				vim.lsp.config(server_name, server_config)
+				vim.lsp.enable(server_name)
+			end
+
+			local ensure_installed = vim.tbl_keys(servers)
 			vim.list_extend(ensure_installed, {
 				"stylua",
+				"prettierd",
+				"prettier",
 				"eslint-lsp",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 			require("mason-lspconfig").setup({
-				automatic_installation = true,
-				-- handlers already defined above
-			})
-
-			vim.api.nvim_create_autocmd("LspAttach", {
-				callback = function(args)
-					local c = vim.lsp.get_client_by_id(args.data.client_id)
-					if not c then
-						return
-					end
-
-					if vim.bo.filetype == "lua" then
-						-- Format the current buffer on save
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = args.buf,
-							callback = function()
-								vim.lsp.buf.format({ bufnr = args.buf, id = c.id })
-							end,
-						})
-					end
-				end,
+				ensure_installed = vim.tbl_keys(servers),
+				automatic_enable = false,
 			})
 		end,
 	},

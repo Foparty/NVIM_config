@@ -1,8 +1,3 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.g.have_nerd_font = true
-
 local o = vim.opt
 
 vim.schedule(function()
@@ -41,7 +36,7 @@ o.cursorline = true
 o.scrolloff = 10
 
 o.spelllang = { "es", "en", "ru" }
--- vim.opt.spell = true
+
 vim.diagnostic.config({
   virtual_text = true,
   signs = {
@@ -51,6 +46,11 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = "󰋽 ",
       [vim.diagnostic.severity.HINT] = "󰌶 ",
     },
+  },
+  float = {
+    border = "rounded",
+    source = true,
+    focusable = false,
   },
 })
 
@@ -64,17 +64,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 
-vim.opt.signcolumn = "yes"
--- o.winborder = "rounded"
-
 -- Folding settings
-
-o.foldmethod = "expr"                          -- Use expression-based folding
-o.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use Tree-sitter for fold expressions
-o.foldlevel = 99                               -- Start with all folds open (high foldlevel)
-o.foldlevelstart = 99                          -- Apply to new buffers
-o.foldenable = true                            -- Enable folding
-o.foldcolumn = "0"                             -- Show fold column for indicators
+o.foldmethod = "expr"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldenable = true
+o.foldcolumn = "0"
 
 o.fillchars = {
   foldopen = "",
@@ -88,14 +84,5 @@ o.fillchars = {
 vim.filetype.add({
   extension = {
     mdx = "mdx",
-  },
-})
-vim.diagnostic.config({
-  virtual_text = true, -- Show inline error messages
-  signs = true,       -- Show signs in the gutter
-  float = {           -- Configure hover/floating window
-    border = "rounded",
-    source = true,    -- Show source of diagnostic
-    focusable = false,
   },
 })
