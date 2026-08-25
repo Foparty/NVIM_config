@@ -74,15 +74,31 @@ local function parse_theme(path)
     end
   end
 
-  if not parsed.colorscheme then
+  local cs = parsed.colorscheme
+  if type(cs) ~= "string" and type(cs) ~= "function" then
     return nil, "no colorscheme in neovim.lua"
   end
 
   return parsed
 end
 
-local function theme_signature(parsed)
-  return parsed.colorscheme .. "\0" .. vim.inspect(parsed.opts)
+-- LazyVim allows opts.colorscheme to be a string or a function (name provider
+-- or inline applicator). Function objects are new on every loadfile, so key
+-- function themes off file identity instead of tostring(fn).
+local function theme_signature(parsed, st)
+  local cs = parsed.colorscheme
+  local cs_part
+  if type(cs) == "function" then
+    cs_part = string.format(
+      "fn:%s:%s:%s",
+      st and st.size or 0,
+      st and st.mtime.sec or 0,
+      st and st.mtime.nsec or 0
+    )
+  else
+    cs_part = cs
+  end
+  return cs_part .. "\0" .. vim.inspect(parsed.opts)
 end
 
 local function find_plugin(parsed)
@@ -103,6 +119,27 @@ local function find_plugin(parsed)
   end
 
   return nil, keys[1]
+end
+
+local TRANSPARENCY_FILE = vim.fn.stdpath("config") .. "/plugin/after/transparency.lua"
+
+-- Colorschemes paint solid backgrounds; re-clear them after each apply (same
+-- idea as stock omarchy-nvim hotreload). Source after ColorScheme so plugins
+-- that restore bg on that event do not win.
+local function apply_transparency()
+  if vim.fn.filereadable(TRANSPARENCY_FILE) ~= 1 then
+    return
+  end
+  vim.defer_fn(function()
+    pcall(vim.cmd.source, TRANSPARENCY_FILE)
+    vim.cmd("redraw!")
+  end, 5)
+end
+
+local function finish_theme_ui()
+  vim.cmd("redraw!")
+  vim.api.nvim_exec_autocmds("ColorScheme", { modeline = false })
+  apply_transparency()
 end
 
 local function apply_theme(parsed, opts)
@@ -126,6 +163,21 @@ local function apply_theme(parsed, opts)
     end
   end
 
+  -- Function colorscheme: LazyVim calls it; if it returns a name, load that.
+  if type(colorscheme) == "function" then
+    local ok, result = pcall(colorscheme)
+    if not ok then
+      vim.notify("omarchy-theme: " .. tostring(result), vim.log.levels.WARN)
+      return
+    end
+    if type(result) == "string" and result ~= "" then
+      Loader.colorscheme(result)
+      pcall(vim.cmd.colorscheme, result)
+    end
+    vim.defer_fn(finish_theme_ui, 5)
+    return
+  end
+
   if plugin and plugin._ and plugin._.loaded then
     local plugin_dir = plugin.dir .. "/lua"
     if vim.uv.fs_stat(plugin_dir) then
@@ -141,9 +193,7 @@ local function apply_theme(parsed, opts)
 
   vim.defer_fn(function()
     pcall(vim.cmd.colorscheme, colorscheme)
-    vim.cmd("redraw!")
-    vim.api.nvim_exec_autocmds("ColorScheme", { modeline = false })
-    vim.cmd("redraw!")
+    finish_theme_ui()
   end, 5)
 end
 
@@ -151,6 +201,7 @@ local function apply_fallback()
   local Loader = require("lazy.core.loader")
   Loader.colorscheme(FALLBACK_COLORSCHEME)
   pcall(vim.cmd.colorscheme, FALLBACK_COLORSCHEME)
+  finish_theme_ui()
 end
 
 local function stat_eq(a, b)
@@ -197,7 +248,7 @@ return {
           return
         end
 
-        local signature = theme_signature(parsed)
+        local signature = theme_signature(parsed, st)
         if last_signature == signature then
           last_stat = st
           return
