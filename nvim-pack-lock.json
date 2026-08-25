@@ -1,0 +1,13 @@
+{
+  "plugins": {
+    "aether": {
+      "rev": "02af9ba1ef9d6f136a6b20404d39f2a4e3857e16",
+      "src": "https://github.com/bjarneo/aether.nvim.git",
+      "version": "'v3'"
+    },
+    "ashen.nvim": {
+      "rev": "bfb04bd50b69d863469b2deb9fb361cf0d945ba7",
+      "src": "https://github.com/ficcdaf/ashen.nvim.git"
+    }
+  }
+}

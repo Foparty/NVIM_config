@@ -44,5 +44,3 @@ require("lazy").setup({
     },
   },
 })
-
-vim.cmd([[colorscheme nightfox]])
