@@ -137,9 +137,23 @@ local function apply_transparency()
 end
 
 local function finish_theme_ui()
+  -- Invalidate before ColorScheme so lualine (and other consumers) read the new
+  -- palette. Lualine's ColorScheme autocmd is often registered before aether's
+  -- cache invalidator, so it would otherwise snapshot the previous theme.
+  pcall(function()
+    require("aether.colorscheme").invalidate()
+  end)
   vim.cmd("redraw!")
   vim.api.nvim_exec_autocmds("ColorScheme", { modeline = false })
   apply_transparency()
+  vim.defer_fn(function()
+    if package.loaded["lualine"] then
+      pcall(function()
+        require("aether.colorscheme").invalidate()
+      end)
+      require("lualine").setup(require("lualine").get_config())
+    end
+  end, 15)
 end
 
 local function apply_theme(parsed, opts)
