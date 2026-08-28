@@ -179,6 +179,13 @@ return {
         end,
         desc = "Grep",
       },
+      {
+        "<leader>rf",
+        function()
+          Snacks.rename.rename_file()
+        end,
+        desc = "Rename current file",
+      },
       -- {
       --   "<C-/>",
       --   function()
