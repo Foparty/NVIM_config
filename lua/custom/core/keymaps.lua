@@ -37,6 +37,9 @@ map.set("n", "<C-left>", "<C-w><", { desc = "Decrease window width" })
 map.set("n", "<C-up>", "<C-w>+", { desc = "Increase window height" })
 map.set("n", "<C-down>", "<C-w>-", { desc = "Decrease window height" })
 
+map.set("n", "j", "jzz", { desc = "Down and center" })
+map.set("n", "k", "kzz", { desc = "Up and center" })
+
 map.set("n", "<leader>e", function()
 	vim.diagnostic.open_float()
 end, { desc = "Open diagnostic float" })
