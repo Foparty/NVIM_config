@@ -6,6 +6,8 @@ return {
 			"rafamadriz/friendly-snippets",
 		},
 		version = "*",
+		-- release tag required for prebuilt fuzzy binaries
+		-- version = "1.*",
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {

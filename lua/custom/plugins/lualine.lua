@@ -17,8 +17,12 @@ return {
       -- and bg_statusline instead — this follows those.
       local function theme()
         local name = vim.g.colors_name
+        -- Only aether gets a hand-built palette. Other Omarchy colorschemes
+        -- (ashen, etc.) usually have no lualine.themes.<name> module — returning
+        -- the colorscheme name triggers "theme not found" notices. Use auto so
+        -- lualine samples the active highlight groups instead.
         if name ~= "aether" then
-          return name or "auto"
+          return "auto"
         end
 
         pcall(function()
